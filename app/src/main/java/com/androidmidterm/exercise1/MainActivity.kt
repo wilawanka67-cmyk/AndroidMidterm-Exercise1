@@ -40,6 +40,11 @@ class MainActivity : ComponentActivity() {
         super.onStart()
         Toast.makeText(applicationContext, "onStart", Toast.LENGTH_SHORT).show()
     }
+
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(applicationContext, "onResume", Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Composable
