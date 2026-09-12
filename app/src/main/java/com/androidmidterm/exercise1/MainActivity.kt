@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -65,44 +66,59 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun StudentProfileScreen() {
     Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 24.dp, vertical = 32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "ข้อสอบมิดเทอม Android สมัยใหม่",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = "ข้อที่ 1 Activity Lifecycle",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.student_photo),
-                contentDescription = "รูปนักศึกษา วิลาวัณย์ การุณ",
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+            val compact = maxHeight < 600.dp
+            val screenPadding = if (compact) 8.dp else 32.dp
+            val photoWidth = if (compact) 240.dp else 280.dp
+            val photoHeight = if (compact) 160.dp else 210.dp
+            val titleStyle = if (compact) {
+                MaterialTheme.typography.titleLarge
+            } else {
+                MaterialTheme.typography.headlineSmall
+            }
+
+            Column(
                 modifier = Modifier
-                    .size(280.dp, 210.dp)
-                    .clip(RoundedCornerShape(20.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                text = "วิลาวัณย์ การุณ",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(top = 24.dp)
-            )
-            Text(
-                text = "รหัสนักศึกษา 67102122101",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top = 6.dp)
-            )
+                    .fillMaxSize()
+                    .padding(horizontal = 24.dp, vertical = screenPadding),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "ข้อสอบมิดเทอม Android สมัยใหม่",
+                    style = titleStyle,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "ข้อที่ 1 Activity Lifecycle",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(
+                        top = if (compact) 2.dp else 8.dp,
+                        bottom = if (compact) 8.dp else 24.dp
+                    )
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.student_photo),
+                    contentDescription = "รูปนักศึกษา วิลาวัณย์ การุณ",
+                    modifier = Modifier
+                        .size(photoWidth, photoHeight)
+                        .clip(RoundedCornerShape(20.dp)),
+                    contentScale = ContentScale.Crop
+                )
+                Text(
+                    text = "วิลาวัณย์ การุณ",
+                    style = titleStyle,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(top = if (compact) 8.dp else 24.dp)
+                )
+                Text(
+                    text = "รหัสนักศึกษา 67102122101",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(top = if (compact) 2.dp else 6.dp)
+                )
+            }
         }
     }
 }
