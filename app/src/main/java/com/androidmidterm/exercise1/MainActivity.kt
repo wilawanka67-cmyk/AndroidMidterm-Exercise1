@@ -35,6 +35,11 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(applicationContext, "onStart", Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Composable
