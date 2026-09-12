@@ -50,6 +50,11 @@ class MainActivity : ComponentActivity() {
         super.onPause()
         Toast.makeText(applicationContext, "onPause", Toast.LENGTH_SHORT).show()
     }
+
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(applicationContext, "onStop", Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Composable
